@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Video 5 - Review</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <h1>API Review</h1>
+
+        <section id="Animal">
+            <h3>Create Animal</h3>
+
+            <form onsubmit="submitAnimal(event)">
+                <label>
+                    Animal type:
+                    <input type="text" name="type" />
+                </label>
+
+                <label>
+                    Number of legs:
+                    <input type="number" name="numberOfLegs" />
+                </label>
+
+                <button>Submit Animal</button>
+            </form>
+        </section>
+
+        <section id="plant">
+            <h3>Create Plant</h3>
+
+            <form action="/api/plants" method="POST">
+                <label>
+                    Plant type:
+                    <input type="text" name="type" />
+                </label>
+
+                <fieldset>
+                    <legend>Does this plant have fruit?</legend>
+                    <label>
+                        Yes
+                        <input type="radio" name="hasFruit" value="true" />
+                    </label>
+                    <label>
+                        No
+                        <input type="radio" name="hasFruit" value="false" />
+                    </label>
+                </fieldset>
+
+                <button>Submit Plant</button>
+            </form>
+        </section>
+    </body>
+    <script type="text/javascript">
+        const submitAnimal = event => {
+            event.preventDefault();
+            let form = event.target;
+            let data = {
+                type: form.querySelector("[name='type']").value,
+                numberOfLegs: form.querySelector("[name='numberOfLegs']").value,
+            }
+
+            axios.post("/api/animals", data)
+                .then(result => {
+                    console.log(result.data);
+                })
+                .catch(error => console.log(error.response.data))
+        }
+    </script>
+
+</html>
